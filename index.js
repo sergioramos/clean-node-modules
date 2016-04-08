@@ -27,12 +27,12 @@ var onIgnore = function(ignore) {
 };
 
 var cleanIgnores = function() {
-  var filename = path.join(__dirname, '.gitignore');
-  var ignores = fs.readFileSync(filename, 'utf-8').split(/\n/);
-  ignores.forEach(onIgnore);
+  require('./ignore.json').forEach(onIgnore);
 }
 
-var onPkg = function(filename) {
+var onPkg = function(match) {
+  var filename = path.join(process.cwd(), match);
+
   if (!fs.existsSync(filename)) {
     return;
   }
@@ -48,7 +48,7 @@ var onPkg = function(filename) {
 }
 
 var cleanReadmes = function() {
-  glob.sync(path.join(process.cwd(), '**/*/package.json')).forEach(onPkg);
+  glob.sync('**/*/package.json').forEach(onPkg);
 }
 
 cleanReadmes();
