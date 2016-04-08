@@ -6,13 +6,13 @@ var rimraf = require('rimraf');
 var fs = require('fs');
 
 var onIgnored = function(file) {
-  var filename = path.join(__dirname, file);
+  var filename = path.join(process.cwd(), file);
 
   if ((/license/i).test(path.basename(filename))) {
     return;
   }
 
-  console.log('  removing %s', filename.replace(__dirname + '/', ''));
+  console.log('  removing %s', filename.replace(process.cwd() + '/', ''));
   rimraf.sync(filename);
 };
 
@@ -30,9 +30,7 @@ var cleanIgnores = function() {
   ignores.forEach(onIgnore);
 }
 
-var onPkg = function(file) {
-  var filename = path.join(__dirname, file);
-
+var onPkg = function(filename) {
   if (!fs.existsSync(filename)) {
     return;
   }
@@ -43,12 +41,12 @@ var onPkg = function(file) {
     pkg[key] = !regex.test(key) ? pkg[key] : undefined;
   })
 
-  console.log('  cleaning %s', filename.replace(__dirname + '/', ''));
+  console.log('  cleaning %s', filename.replace(process.cwd() + '/', ''));
   fs.writeFileSync(filename, JSON.stringify(pkg, null, 2), 'utf-8');
 }
 
 var cleanReadmes = function() {
-  glob.sync('**/*/package.json').forEach(onPkg);
+  glob.sync(path.join(process.cwd(), '**/*/package.json')).forEach(onPkg);
 }
 
 cleanReadmes();
