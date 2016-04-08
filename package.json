@@ -1,0 +1,11 @@
+{
+  "name": "clean-node-modules",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "glob": "^7.0.3",
+    "into-stream": "^2.0.0",
+    "rimraf": "^2.5.2",
+    "through2": "^2.0.1"
+  }
+}
