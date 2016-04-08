@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var glob = require('glob');
 var intoStream = require('into-stream');
 var through = require('through2');

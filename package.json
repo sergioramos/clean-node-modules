@@ -7,8 +7,8 @@
     "clean",
     "remove"
   ],
-  "version": "2.0.1",
-  "main": "index.js",
+  "version": "2.1.1",
+  "bin": "index.js",
   "license": "MIT",
   "dependencies": {
     "glob": "^7.0.3",
